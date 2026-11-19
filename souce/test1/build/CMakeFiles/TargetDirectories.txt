@@ -1,3 +1,0 @@
-/mnt/f/sunlinux_ubuntu/cmake/test1/build/CMakeFiles/test1.dir
-/mnt/f/sunlinux_ubuntu/cmake/test1/build/CMakeFiles/edit_cache.dir
-/mnt/f/sunlinux_ubuntu/cmake/test1/build/CMakeFiles/rebuild_cache.dir
