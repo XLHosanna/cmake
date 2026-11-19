@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 project(test1 VERSION 1.0.2)
-add_executable(test1)
-target_sources(test1 PRIVATE
+
+add_executable(${PROJECT_NAME})
+
+target_sources(${PROJECT_NAME} PRIVATE
     src/main.cpp
 )
 
@@ -12,3 +15,4 @@ message(STATUS "PROJECT_BINARY_DIR = ${PROJECT_BINARY_DIR}")
 message(STATUS "test1_BINARY_DIR = ${test1_BINARY_DIR}")
 message(STATUS "test1_SOURCE_DIR = ${test1_SOURCE_DIR}")
 message("12test1_SOURCE_DIR = ${test1_SOURCE_DIR}")
+message(STATUS "CMAKE_BINARY_DIR = ${CMAKE_BINARY_DIR}")

@@ -3,7 +3,7 @@ cmake的学习记录
 
 1. 1个小例子
 
-```
+```cmake
 cmake_minimum_required(VERSION 3.10)
 project(test1)
 add_executable(test1
@@ -15,7 +15,7 @@ add_executable(test1
 
 1. cmake_minimum_required()，**指定版本约束信息**：
 
-```
+```cmake
 cmake_minimum_required(VERSION <min> [... <policy_max>] [FATAL_ERROR])
 
 VERSION：			关键字
@@ -28,9 +28,9 @@ min：				约束的最小版本
 
 
 
-1. project(),**声明当前项目的“身份信息”和“编译语言环境”**：
+2. project(),**声明当前项目的“身份信息”和“编译语言环境”**：
 
-```
+```cmake
 project(<PROJECT-NAME>
         [VERSION <major>[.<minor>[.<patch>[.<tweak>]]]]
         [DESCRIPTION <项目描述>]
@@ -62,9 +62,9 @@ LANGUAGES：		指定使用的编程语言，编译根据这个选择编译器,�
 	以上参数的的练习使用会在后边添加。
 ```
 
-1. add_executable() **创建可执行文件目标**：
+3. add_executable() **创建可执行文件目标**：
 
-```
+```cmake
 add_executable(<name> [WIN32] [MACOSX_BUNDLE] [EXCLUDE_FROM_ALL] [source1] [source2] ...)
 
 <name>：				生成的程序名
@@ -78,7 +78,7 @@ add_executable(<name> [WIN32] [MACOSX_BUNDLE] [EXCLUDE_FROM_ALL] [source1] [sour
 
 (1) 普通可执行目标：最常见的使用方式
 
-```
+```cmake
 add_executable(test1
     src/main.cpp
 )
@@ -86,7 +86,7 @@ add_executable(test1
 
 （2）导入可执行文件：引用项目外部的可执行文件，不需要重新编译:
 
-```
+```cmake
 add_executable(mytool IMPORTED)
 set_target_properties(mytool PROPERTIES
     IMPORTED_LOCATION "/usr/local/bin/mytool"
@@ -95,14 +95,14 @@ set_target_properties(mytool PROPERTIES
 
 (3) 别名目标：给已有目标起一个别名，常用于创建子项目或者库的对外暴露：
 
-```
+```cmake
 add_executable(myapp main.cpp)
 add_executable(MyApp::app ALIAS myapp)
 ```
 
 和**target_sources** 的配合：源文件可以一开始不全写，后面用 `target_sources()` 补充：
 
-```
+```cmake
 add_executable(test1 src/main.cpp)
 
 target_sources(test1 PRIVATE
@@ -117,9 +117,9 @@ target_sources(test1 PRIVATE
 
 ​	add_library：生成库文件(.a .so .lib .dll)
 
-1. target_sources()：**给已经创建好的目标追加源文件**：
+4. target_sources()：**给已经创建好的目标追加源文件**：
 
-```
+```cmake
 target_sources(<目标名>
     PRIVATE 源文件...
     PUBLIC   源文件...
@@ -138,15 +138,15 @@ INTERFACE：当前目标不编译，只传给依赖者（常见于接口库、�
 
 也可以多次追加:
 
-```
+```cmake
 add_executable(test1 src/main.cpp)
 target_sources(test1 PRIVATE src/a.cpp)
 target_sources(test1 PRIVATE src/b.cpp)
 ```
 
-1. message**打印/调试命令**：
+5. message**打印/调试命令**：
 
-```
+```cmake
 message([<mode>] "message text" ...)
 
 [<mode>]：模式（可选）
@@ -160,4 +160,31 @@ message([<mode>] "message text" ...)
 	FATAL_ERROR:	致命错误，立即终端
 	DEBUG/VERBOSE/IRACE：   调试信息，默认通常不显示
 ```
+
+------
+
+```cmake
+# 升级练习版本
+cmake_minimum_required(VERSION 3.10)
+project(test1 VERSION 1.0.2)
+
+add_executable(${PROJECT_NAME})
+
+target_sources(${PROJECT_NAME} PRIVATE
+    src/main.cpp
+)
+message(STATUS "PROJECT_NAME = ${PROJECT_NAME}")
+message(STATUS "PROJECT_VERSION = ${PROJECT_VERSION}")
+message(STATUS "PROJECT_SOURCE_DIR = ${PROJECT_SOURCE_DIR}")
+message(STATUS "PROJECT_BINARY_DIR = ${PROJECT_BINARY_DIR}")
+message(STATUS "test1_BINARY_DIR = ${test1_BINARY_DIR}")
+message(STATUS "test1_SOURCE_DIR = ${test1_SOURCE_DIR}")
+message("12test1_SOURCE_DIR = ${test1_SOURCE_DIR}")
+```
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+6. set()命令
 
